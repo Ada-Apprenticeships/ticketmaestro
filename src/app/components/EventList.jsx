@@ -2,14 +2,9 @@ import EventCard from './EventCard.jsx';
 
 
 async function fetchEvents() {
-  return fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&keyword=jazz&city=Manchester`)
-    .then(function(response) {
-      // this callback is called when the network request is completed...
-      return response.json();
-    })
-    .then(function(jsonObject) {
-      return jsonObject._embedded.events;
-    })
+   const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETMASTER_API_KEY}&keyword=jazz&city=Manchester`);
+   const data = await response.json();
+   return data._embedded.events;
 }
 
 export default async function EventList() {
