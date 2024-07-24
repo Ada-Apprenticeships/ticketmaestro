@@ -9,7 +9,7 @@ Preview me! `⇧⌘V` (Mac) or `Ctrl+Shift+V` (Windows)
 - Identify when and where data is being fetched inside a React component
 
 ## Key concepts 🔑
-
+x
 - 1-to-1 mapping
 - static vs dynamic
 - Web API
