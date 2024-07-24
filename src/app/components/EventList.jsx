@@ -9,15 +9,24 @@ async function fetchEvents() {
 
 export default async function EventList() {
 
-  // fetch data from ticketmaster API -> API key!
-  const events = await fetchEvents();
-  console.log(events[0],'<----- first event back')
+  const events_ = await fetchEvents()
 
+  let events = events_.map((item) => {
+    let venue = item._embedded.venues.pop();
+    return {
+      id: item.id,
+      name: item.name,
+      month: new Date(item.dates.start.localDate).toLocaleString('default', { month: 'short' }),
+      day: new Date(item.dates.start.localDate).getDate(),
+      time: item.dates.start.localTime,
+      location: venue && venue.city.name,
+      venue: venue && venue.name,
+      url: item.url
+    }
+  })
   return (
-    <div className="event-list">
-      {events.map((event) => (
-        <EventCard key={event.key} {...event} />
-      ))}
-    </div>
-  );
+      <div className="event-list">
+          {events.map(event => <EventCard key={event.id} {...event} />)}
+      </div>
+  )
 }
